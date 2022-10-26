@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\StudentSubject;
+use App\Models\Major;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\TryCatch;
 use Illuminate\Support\Facades\DB;
 
 use Carbon\Carbon;
 
-class KRSController extends Controller
+class OptionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,13 +20,18 @@ class KRSController extends Controller
     public function index()
     {
         try {
-            $data = StudentSubject::distinct('student_id')->where('status',"PENDING")->get();
-            return view('admin.krs.index', [
+            // $data = StudentSubject::distinct('student_id')->where('status',"PENDING")->get();
+            $data = Major::all();
+
+            //id civil engineering
+            $data_subject = MajorSubject::where('major_id',$id_major)->get('subject_id');
+            return view('admin.option.index', [
                 'data' => $data,
+                'data_subject'=>$data_subject
             ]);
         } catch (\Throwable $th) {
             dd($th);
-            return redirect('/krs')->with('toast_error',  'Halaman tidak dapat di akses!');
+            return redirect('/option')->with('toast_error',  'Halaman tidak dapat di akses!');
         }
     }
 
@@ -39,11 +45,11 @@ class KRSController extends Controller
         try {
             $data = StudentSubject::all();
 
-            return view('admin.krs.create', [
+            return view('admin.option.create', [
                 'data' => $data,
             ]);
         } catch (\Throwable $th) {
-            return redirect('/krs')->with('toast_error',  'Halaman tidak dapat di akses!');
+            return redirect('/option')->with('toast_error',  'Halaman tidak dapat di akses!');
         }
     }
 
@@ -56,13 +62,13 @@ class KRSController extends Controller
     public function store(Request $request)
     {
         try {
-            KRS::create([
+            Option::create([
                 'user_id' => $request->user_id,
             ]);
-            return redirect('/krs')->with('toast_success', 'Data berhasil ditambah!');
+            return redirect('/option')->with('toast_success', 'Data berhasil ditambah!');
         } catch (\Throwable $th) {
             dd($th);
-            return redirect('/krs')->with('toast_error',  'Data tidak berhasil ditambah!');
+            return redirect('/option')->with('toast_error',  'Data tidak berhasil ditambah!');
         }
     }
 
@@ -82,12 +88,12 @@ class KRSController extends Controller
                 $x['count'] = StudentSubject::where('subject_id',$x->subject_id)->count();
             }
 
-            return view('admin.krs.edit', [
+            return view('admin.option.edit', [
                 'data' => $data
             ]);
         } catch (\Throwable $th) {
             dd($th);
-            return redirect('/krs')->with('toast_error',  'Halaman tidak dapat di akses!');
+            return redirect('/option')->with('toast_error',  'Halaman tidak dapat di akses!');
         }
     }
 
@@ -133,10 +139,10 @@ class KRSController extends Controller
     public function destroy($id)
     {
         try {
-            KRS::where('id', $id)->delete();
-            return redirect('/krs')->with('toast_success', 'Data berhasil dihapus!');
+            Option::where('id', $id)->delete();
+            return redirect('/option')->with('toast_success', 'Data berhasil dihapus!');
         } catch (\Throwable $th) {
-            return redirect('/krs')->with('toast_error',  'Data tidak berhasil dihapus!');
+            return redirect('/option')->with('toast_error',  'Data tidak berhasil dihapus!');
         }
     }
 }

@@ -1,5 +1,5 @@
-    <!--   Core JS Files   -->
-    <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
+<!--   Core JS Files   -->
+<script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
@@ -17,7 +17,6 @@
             searchable: true,
             fixedHeight: true
         });
-
         const dataTableSearch = new simpleDatatables.DataTable(".datatable-search", {
             searchable: true,
             fixedHeight: true
@@ -68,6 +67,8 @@
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
+  
+
     {{-- Select 2 --}}
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"
         integrity="sha256-AFAYEOkzB6iIKnTYZOdUf9FFje6lOTYdwRJKwTN5mks=" crossorigin="anonymous"></script>
@@ -96,7 +97,6 @@
     <script>
         // The DOM element you wish to replace with Tagify
         var input = document.querySelector('input[class=basic]');
-
         // initialize Tagify on the above input node reference
         new Tagify(input)
     </script>

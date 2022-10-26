@@ -10,6 +10,7 @@
     @include('_partial._header')
     {{-- ==============. HEADER ============== --}}
 
+
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">

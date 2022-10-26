@@ -1,6 +1,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @extends('_layout.layout_main')
 
+
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -129,14 +130,16 @@
                                 {{ $x->count }}
                             </div>
                             <div class="col">
+                                @if ($x->status == "PENDING")
                                 <div class="d-flex flex-row justify-content-evenly">
-                                    <button class="btn btn-success p-2" value="true" type="submit" id="ajax-submit">
-                                        <i class="fa fa-icon fa-check"></i>
+                                    <button class="btn btn-success p-2" value="true" type="submit" id="ajax-submit" data-id={{ $x->id }}>
+                                        <i class="fa fa-icon fa-check" style="pointer-events:none"></i>
                                     </button>
                                     <button class="btn btn-danger p-2" value="false" type="submit">
                                         <i class="fa fa-icon fa-times"></i>
                                     </button>
                                 </div>
+                                @endif
                             </div>
                         </div>
                     @endforeach
@@ -146,27 +149,53 @@
     </div>
 @endsection
 
+
+
 @section('sweetalert')
     {{-- DELETE WITH SWEETALERT --}}
+
     <script>
+       
         $(document).ready(function() {
-            $('#ajax-submit').click(function(e) {
-                console.log("test")
+            // $("button#ajax-submit").click(function(e) {
+            //     // e.preventDefault();
+            //     console.log(e.target)
+            //     let id = $(this).attr('data-id');
+                
+                
+            // })
+            $("button#ajax-submit").click(function(e){
                 let id = $(this).attr('data-id');
-                e.preventDefault();
+                const value = $(this).attr("value");
+                
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
                     }
                 })
                 $.ajax({
-                    url: "{{ url('/krs-update') }}",
+                    url: `{{ url('/krs-update/${id}') }}`,
                     method: "POST",
                     data: {
-                        id: id
-                    }
+                        value,
+                    },
+                    beforeSend: function(){
+                        swal({
+                title:"", 
+                text:"Loading...",
+                icon: "https://www.boasnotas.com/img/loading2.gif",
+                buttons: false,      
+                closeOnClickOutside: false,
+                timer: 3000,
+                allowOutsideClick: false
+            });
+                    },
                     success: function(result) {
-                        console.log(result)
+                       e.target.parentElement.remove();
+                       swal.stopLoading();
+                    },
+                    error: function(err){
+                        console.log(err);
                     }
                 })
             })

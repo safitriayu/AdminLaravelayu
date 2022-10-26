@@ -1,20 +1,22 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\LecturersController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\StudentsController;
-use App\Http\Controllers\VerifyController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\SubjectController;
-use App\Http\Controllers\MajorController;
-use App\Http\Controllers\ModuleController;
-use App\Http\Controllers\SessionController;
-use App\Http\Controllers\AssignmentController;
-use App\Http\Controllers\VideoController;
-use App\Http\Controllers\DocumentController;
-use App\Http\Controllers\KRSController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KRSController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MajorController;
+use App\Http\Controllers\VideoController;
+use App\Http\Controllers\ModuleController;
+use App\Http\Controllers\OptionController;
+use App\Http\Controllers\VerifyController;
+use App\Http\Controllers\SessionController;
+use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\StudentsController;
+use App\Http\Controllers\DashboardController;
+
+use App\Http\Controllers\LecturersController;
+use App\Http\Controllers\AssignmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -129,7 +131,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/krs-edit/{id}', [KRSController::class, 'edit']);
     Route::post('/krs-update/{id}', [KRSController::class, 'update']);
 
-
+    //Option
+    Route::get('/option', [OptionController::class, 'index']);
+    Route::post('/getmatakuliah', [OptionController::class, 'getmatakuliah'])->name('getmatakuliah');
 });
 // Tidak perlu login pun bisa di akses :)
 Route::get('/test', function () {

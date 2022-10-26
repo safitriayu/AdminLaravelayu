@@ -99,6 +99,12 @@
                                 <span class="sidenav-normal"> KRS </span>
                             </a>
                         </li>
+                        <li class="nav-item ">
+                            <a class="nav-link " href="/option">
+                                <span class="sidenav-mini-icon"> O </span>
+                                <span class="sidenav-normal"> Option </span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </li>
